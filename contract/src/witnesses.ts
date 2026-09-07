@@ -13,9 +13,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// This is how we type an empty object.
+import type { WitnessContext } from "@midnight-ntwrk/compact-runtime";
+import type { Ledger } from "./managed/counter/contract/index.js";
+
 export type CounterPrivateState = {
   privateCounter: number;
 };
 
-export const witnesses = {};
+export const witnesses = {
+  privateCounter: ({
+    privateState,
+  }: WitnessContext<Ledger, CounterPrivateState>): [
+    CounterPrivateState,
+    bigint,
+  ] => [privateState, BigInt(privateState.privateCounter)],
+};

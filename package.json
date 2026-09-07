@@ -7,6 +7,12 @@
     "counter-cli",
     "contract"
   ],
+  "scripts": {
+    "compact": "npm run compact --workspace @midnight-ntwrk/counter-contract",
+    "build": "npm run build --workspace @midnight-ntwrk/counter-contract && npm run build --workspace @midnight-ntwrk/counter-cli",
+    "test": "npm run test --workspace @midnight-ntwrk/counter-contract",
+    "typecheck": "npm run typecheck --workspace @midnight-ntwrk/counter-contract && npm run typecheck --workspace @midnight-ntwrk/counter-cli"
+  },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@types/node": "^25.5.0",
@@ -23,7 +29,7 @@
   },
   "dependencies": {
     "@midnight-ntwrk/compact-runtime": "0.15.0",
-    "@midnight-ntwrk/ledger-v8": "^8.0.0",
+    "@midnight-ntwrk/ledger-v8": "8.1.2",
     "@midnight-ntwrk/midnight-js": "^4.0.4",
     "@midnight-ntwrk/midnight-js-http-client-proof-provider": "^4.0.4",
     "@midnight-ntwrk/midnight-js-indexer-public-data-provider": "^4.0.4",

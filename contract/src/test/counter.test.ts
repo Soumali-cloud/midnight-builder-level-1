@@ -41,4 +41,13 @@ describe("Counter smart contract", () => {
     const nextPrivateState = simulator.getPrivateState();
     expect(nextPrivateState).toEqual({ privateCounter: 0 });
   });
+
+  it("proves a private witness and discloses only acceptance", () => {
+    const simulator = new CounterSimulator();
+    const nextLedgerState = simulator.incrementWithPrivateWitness();
+
+    expect(nextLedgerState.round).toEqual(1n);
+    expect(nextLedgerState.proofAccepted).toBe(true);
+    expect(simulator.getPrivateState()).toEqual({ privateCounter: 0 });
+  });
 });

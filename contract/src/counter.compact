@@ -13,14 +13,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pragma language_version >= 0.20;
+pragma language_version 0.22;
 
 import CompactStandardLibrary;
 
 // public state
 export ledger round: Counter;
 
+// Only the result of the private-witness check is public. The witness value
+// itself never reaches the ledger.
+export ledger proofAccepted: Boolean;
+
+// Witnesses are supplied by the local TypeScript prover and are never sent to
+// the Midnight node.
+witness privateCounter(): Uint<8>;
+
 // transition function changing public state
 export circuit increment(): [] {
+  round.increment(1);
+}
+
+// Prove knowledge of the private increment without revealing the witness.
+export circuit incrementWithPrivateWitness(): [] {
+  const isValid = privateCounter() == 1;
+  assert(isValid, "private counter must equal one");
+  proofAccepted = disclose(isValid);
   round.increment(1);
 }

@@ -64,4 +64,12 @@ export class CounterSimulator {
     ).context;
     return ledger(this.circuitContext.currentQueryContext.state);
   }
+
+  public incrementWithPrivateWitness(): Ledger {
+    this.circuitContext =
+      this.contract.impureCircuits.incrementWithPrivateWitness(
+        this.circuitContext,
+      ).context;
+    return ledger(this.circuitContext.currentQueryContext.state);
+  }
 }
